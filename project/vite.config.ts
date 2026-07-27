@@ -10,7 +10,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://club-portal-1-ms4q.onrender.com',
+        target: 'http://localhost:5000',
         changeOrigin: true,
       },
     },
