@@ -8,10 +8,16 @@ dotenv.config();
 
 async function seed() {
   try {
-    const mongoUri = process.env.MONGODB_URI;
+    let mongoUri = process.env.MONGODB_URI;
     if (!mongoUri) {
       throw new Error('MONGODB_URI is not set. Provide a valid MongoDB connection string in the server environment (.env).');
     }
+    // Clean MONGODB_URI to correct schema typos and strip brackets around passwords
+    if (mongoUri.startsWith('mmongodb')) {
+      mongoUri = mongoUri.replace(/^mmongodb/, 'mongodb');
+    }
+    mongoUri = mongoUri.replace(/:<([^>]+)>/, ':$1');
+
     await mongoose.connect(mongoUri);
     console.log('Connected to MongoDB');
 

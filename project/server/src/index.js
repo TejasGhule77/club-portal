@@ -31,11 +31,17 @@ app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 
 const PORT = process.env.PORT || 5000;
 
-const mongoUri = process.env.MONGODB_URI;
+let mongoUri = process.env.MONGODB_URI;
 if (!mongoUri) {
   console.error('MONGODB_URI is not set. Seed and server require a valid MongoDB connection string in the environment.');
   process.exit(1);
 }
+
+// Clean MONGODB_URI to correct schema typos and strip brackets around passwords
+if (mongoUri.startsWith('mmongodb')) {
+  mongoUri = mongoUri.replace(/^mmongodb/, 'mongodb');
+}
+mongoUri = mongoUri.replace(/:<([^>]+)>/, ':$1');
 
 mongoose
   .connect(mongoUri)
