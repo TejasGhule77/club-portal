@@ -15,7 +15,7 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors({ origin: process.env.CLIENT_URL || 'https://club-portal-hrnx.vercel.app', credentials: true }));
+app.use(cors({ origin: process.env.CLIENT_URL || 'https://club-portal-one.vercel.app', credentials: true }));
 app.use(express.json({ limit: '10mb' }));
 
 app.use('/api/auth', authRoutes);
