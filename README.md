@@ -245,3 +245,11 @@ EMAIL_PASS=your_email_password_or_app_specific_token
 ## 📄 License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
+-----
+
+## Live Demo
+
+🚀 **Deployed Application:** https://club-portal-ten.vercel.app/
+
+You can access the live Clubportal application directly from the link above.
+
