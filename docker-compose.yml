@@ -1,0 +1,52 @@
+services:
+  mongo:
+    image: mongo:7.0
+    container_name: clubportal-mongo
+    restart: unless-stopped
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - clubportal-net
+
+  backend:
+    build:
+      context: ./project/server
+      dockerfile: Dockerfile
+    image: clubportal-backend:latest
+    container_name: clubportal-backend
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      PORT: 5000
+      MONGODB_URI: mongodb://mongo:27017/clubportal
+      JWT_SECRET: supersecretjwtkey12345!
+      ADMIN_INVITE_CODE: ADMIN-CLUB-PORTAL-2026
+      CLIENT_URL: "*"
+    depends_on:
+      - mongo
+    networks:
+      - clubportal-net
+
+  frontend:
+    build:
+      context: ./project
+      dockerfile: Dockerfile
+    image: clubportal-frontend:latest
+    container_name: clubportal-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - clubportal-net
+
+volumes:
+  mongo_data:
+
+networks:
+  clubportal-net:
+    driver: bridge

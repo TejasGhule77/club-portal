@@ -15,7 +15,21 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors({ origin: process.env.CLIENT_URL || 'https://club-portal-one.vercel.app', credentials: true }));
+const allowedOrigins = process.env.CLIENT_URL
+  ? process.env.CLIENT_URL.split(',').map((o) => o.trim())
+  : ['http://localhost:3000', 'http://localhost:5173', 'https://club-portal-one.vercel.app'];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes('*') || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(null, true);
+    },
+    credentials: true,
+  })
+);
 app.use(express.json({ limit: '10mb' }));
 
 app.use('/api/auth', authRoutes);

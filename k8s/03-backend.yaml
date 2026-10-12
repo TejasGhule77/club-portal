@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  namespace: clubportal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: clubportal-backend
+  template:
+    metadata:
+      labels:
+        app: clubportal-backend
+    spec:
+      containers:
+        - name: backend
+          image: clubportal-backend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+          envFrom:
+            - configMapRef:
+                name: clubportal-config
+            - secretRef:
+                name: clubportal-secret
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  namespace: clubportal
+spec:
+  type: ClusterIP
+  selector:
+    app: clubportal-backend
+  ports:
+    - port: 5000
+      targetPort: 5000
