@@ -1,3 +1,8 @@
+/**
+ * Profile Schema - Student Registration & Identity Module
+ * Developed by: Kanishka Gavali (PRN: 2303124)
+ * Defines schema validation for students, club owners, and administrators.
+ */
 import mongoose from 'mongoose';
 
 const profileSchema = new mongoose.Schema({
