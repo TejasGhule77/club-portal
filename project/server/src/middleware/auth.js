@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import Profile from '../models/Profile.js';
-
+//Json web authentication
 export async function requireAuth(req, res, next) {
   const header = req.headers.authorization;
   if (!header || !header.startsWith('Bearer ')) {
