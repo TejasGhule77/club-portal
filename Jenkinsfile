@@ -1,3 +1,7 @@
+/**
+ * Jenkins CI/CD Declarative Pipeline - ClubPortal
+ * Authored by: Prashant Nagre (PRN: 2303108) - Jenkins Engineer
+ */
 pipeline {
     agent any
 
