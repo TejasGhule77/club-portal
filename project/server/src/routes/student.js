@@ -1,3 +1,8 @@
+/**
+ * Student Operations & Club Applications Module
+ * Developed by: Vashnavi Patukule (PRN: 2303115)
+ * Handles student recruitment applications, cover notes, and event RSVPs.
+ */
 import { Router } from 'express';
 import Application from '../models/Application.js';
 import Registration from '../models/Registration.js';
